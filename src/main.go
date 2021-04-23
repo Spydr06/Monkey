@@ -32,6 +32,7 @@ func main() {
 		source := string(buf)
 
 		env := object.NewEnvironment()
+		macroEnv := object.NewEnvironment()
 		l := lexer.New(source)
 		p := parser.New(l)
 
@@ -41,7 +42,10 @@ func main() {
 			return
 		}
 
-		evaluated := evaluator.Eval(program, env)
+		evaluator.DefineMacros(program, macroEnv)
+		expanded := evaluator.ExpandMacros(program, macroEnv)
+
+		evaluated := evaluator.Eval(expanded, env)
 		if evaluated != nil {
 			io.WriteString(os.Stdout, evaluated.Inspect())
 			io.WriteString(os.Stdout, "\n")
