@@ -23,7 +23,7 @@ func main() {
 	if len(args) == 0 {
 		fmt.Printf("Hello %s! this is the Monkey programming language!\n", user.Username)
 		fmt.Printf("Starting in REPL mode\n")
-		repl.Start(os.Stdin, os.Stdout)
+		repl.Start(os.Stdin, os.Stdout, true)
 	} else if len(args) == 1 {
 		buf, err := ioutil.ReadFile(args[0])
 		if err != nil {
