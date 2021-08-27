@@ -52,8 +52,8 @@ func Start(in io.Reader, out io.Writer, useVM bool) {
 				continue
 			}
 
-			stackTop := machine.StackTop()
-			io.WriteString(out, stackTop.Inspect())
+			lastPopped := machine.LastPoppedStackElem()
+			io.WriteString(out, lastPopped.Inspect())
 			io.WriteString(out, "\n")
 		} else {
 			evaluator.DefineMacros(program, macroEnv)
