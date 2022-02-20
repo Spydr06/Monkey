@@ -14,7 +14,12 @@ func TestNextToken(t *testing.T) {
 		return x + y;
 	};
 	
-	let result = add(five, ten);==
+	let result = add(five, ten);
+	"foobar"
+	"foo bar"
+	[1, 2];
+	:
+	macro(x, y) { x + y; };
 	`
 
 	tests := []struct {
@@ -58,7 +63,29 @@ func TestNextToken(t *testing.T) {
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
-		{token.EQ, "=="},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
+		{token.COLON, ":"},
+		{token.MACRO, "macro"},
+		{token.LPAREN, "("},
+		{token.IDENT, "x"},
+		{token.COMMA, ","},
+		{token.IDENT, "y"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.IDENT, "x"},
+		{token.PLUS, "+"},
+		{token.IDENT, "y"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.SEMICOLON, ";"},
+		{token.EOF, ""},
 	}
 
 	l := New(input)
