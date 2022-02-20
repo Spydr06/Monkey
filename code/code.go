@@ -31,6 +31,8 @@ const (
 
 	OpJumpNotTruthy
 	OpJump
+
+	OpNull
 )
 
 type Definition struct {
@@ -50,6 +52,7 @@ var definitions = map[Opcode]*Definition{
 
 	OpTrue:  {"OpTrue", []int{}},
 	OpFalse: {"OpFalse", []int{}},
+	OpNull:  {"OpNull", []int{}},
 
 	OpEqual:       {"OpEqual", []int{}},
 	OpNotEqual:    {"OpNotEqual", []int{}},
