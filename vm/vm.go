@@ -201,6 +201,15 @@ func (vm *VM) Run() error {
 				return err
 			}
 
+		case code.OpReturn:
+			vm.popFrame()
+			vm.pop()
+
+			err := vm.push(Null)
+			if err != nil {
+				return err
+			}
+
 		case code.OpCall:
 			fn, ok := vm.stack[vm.sp-1].(*object.CompiledFunction)
 			if !ok {
