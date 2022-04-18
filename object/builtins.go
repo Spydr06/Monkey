@@ -147,17 +147,24 @@ var Builtins = []struct {
 	{
 		"exit",
 		&Builtin{Fn: func(args ...Object) Object {
-			if len(args) != 1 && len(args) != 2 {
+			if len(args) > 2 {
 				return newError("wrong number of arguments. got=%d, want=1, 2", len(args))
 			}
 
-			_, ok := args[0].(*Integer)
-			if !ok {
-				return newError("argument to `exit` not supported, got=%s", args[0].Type())
-			}
-
-			if len(args) > 1 {
-				_, ok := args[1].(*String)
+			switch len(args) {
+			case 0:
+				os.Exit(0)
+			case 1:
+				_, ok := args[0].(*Integer)
+				if !ok {
+					return newError("argument to `exit` not supported, got=%s", args[0].Type())
+				}
+			case 2:
+				_, ok := args[0].(*Integer)
+				if !ok {
+					return newError("argument to `exit` not supported, got=%s", args[0].Type())
+				}
+				_, ok = args[1].(*String)
 				if !ok {
 					return newError("argument to `exit` not supported, got=%s", args[1].Type())
 				}
@@ -166,6 +173,13 @@ var Builtins = []struct {
 
 			os.Exit(int(args[0].(*Integer).Value))
 			return nil
+		},
+		},
+	},
+	{
+		"va_args",
+		&Builtin{Fn: func(args ...Object) Object {
+			return &Array{Elements: args}
 		},
 		},
 	},
