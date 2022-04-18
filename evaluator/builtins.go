@@ -12,4 +12,5 @@ var builtins = map[string]*object.Builtin{
 	"gets":    object.GetBuiltinByName("gets"),
 	"exit":    object.GetBuiltinByName("exit"),
 	"va_args": object.GetBuiltinByName("va_args"),
+	"mod":     object.GetBuiltinByName("mod"),
 }

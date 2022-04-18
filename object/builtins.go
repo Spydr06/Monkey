@@ -183,6 +183,28 @@ var Builtins = []struct {
 		},
 		},
 	},
+	{
+		"mod",
+		&Builtin{Fn: func(args ...Object) Object {
+			if len(args) != 2 {
+				return newError("wrong number of arguments. got=%d, want=2", len(args))
+			}
+
+			if args[0].Type() != INTEGER_OBJ {
+				return newError("argument to `mod` expected to be INTEGER, got=%s", args[0].Type())
+			}
+
+			if args[1].Type() != INTEGER_OBJ {
+				return newError("argument to `mod` expected to be INTEGER, got=%s", args[1].Type())
+			}
+
+			x := args[0].(*Integer).Value
+			y := args[1].(*Integer).Value
+
+			return &Integer{Value: x % y}
+		},
+		},
+	},
 }
 
 func GetBuiltinByName(name string) *Builtin {
