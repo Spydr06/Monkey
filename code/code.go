@@ -47,7 +47,9 @@ const (
 	OpCall
 	OpReturnValue
 	OpReturn
+
 	OpClosure
+	OpGetFree
 )
 
 type Definition struct {
@@ -92,7 +94,9 @@ var definitions = map[Opcode]*Definition{
 	OpCall:        {"OpCall", []int{1}},
 	OpReturnValue: {"OpReturnValue", []int{}},
 	OpReturn:      {"OpReturn", []int{}},
-	OpClosure:     {"OpClosure", []int{2, 1}},
+
+	OpClosure: {"OpClosure", []int{2, 1}},
+	OpGetFree: {"OpGetFree", []int{1}},
 }
 
 func (ins Instructions) String() string {
